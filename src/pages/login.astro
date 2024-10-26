@@ -1,7 +1,12 @@
 ---
 import MainLayout from "../layout/MainLayout.astro";
 import { account } from "../lib/appwrite";
+let message = "";
+let email = "";
+let password = "";
 
+const dbID = import.meta.env.PUBLIC_ASTRO_APPWRITE_DATABASE_ID;
+const collectionID = import.meta.env.PUBLIC_ASTRO_APPWRITE_COLLECTION_ID;
 
 // Process the POST request
 if (Astro.request.method === "POST") {

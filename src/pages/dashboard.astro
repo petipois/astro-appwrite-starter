@@ -36,12 +36,12 @@ if (Astro.request.method === "POST") {
             // Delete the note by its ID
             await db.deleteDocument(
                 databaseId, // Database ID
-                collectionId, // Collection ID
-                noteId, // Document ID to be deleted
+                collectionId,    // Collection ID
+                noteId,     // Document ID to be deleted
             );
 
             // Redirect to the same page to refresh the list
-            return Astro.redirect("/dashboard");
+            return Astro.redirect("/");
         }
     } catch (error) {
         console.error("Failed to delete note or image", error);
@@ -55,7 +55,7 @@ if (Astro.request.method === "POST") {
         {
             notes.map((note) => (
                 <Card
-                    id={note.$id}
+                    id={note.id}
                     imageUrl={note.imageUrl}
                     title={note.title}
                     content={note.content}

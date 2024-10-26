@@ -1,0 +1,43 @@
+---
+interface Props {
+    title: string;
+    content: string;
+    imageUrl?: string;
+    id: number;
+}
+const storageBucket = import.meta.env.PUBLIC_ASTRO_APPWRITE_STORAGE_BUCKET;
+const projectID = import.meta.env.PUBLIC_ASTRO_APPWRITE_PROJECT_ID;
+const { id, title, content, imageUrl } = Astro.props;
+const storageURL = `https://cloud.appwrite.io/v1/storage/buckets/${storageBucket}/files/`;
+const viewURL = `/view?project=${projectID}&mode=admin`;
+---
+
+<div
+    class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+>
+
+    <a href="/">
+        <img
+            src={imageUrl
+                ? storageURL + imageUrl + viewURL
+                : "https://placehold.co/400"}
+            alt=`image`
+            class="w-full h-48 object-cover"
+        />
+        <h5
+            class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
+        >
+            {title}
+        </h5>
+    </a>
+    <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">{content}</p>
+    <form method="POST">
+        <input type="hidden" name="noteId" value={id} />
+        <button
+            type="submit"
+            class="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 transition duration-300"
+        >
+            Delete
+        </button>
+    </form>
+</div>

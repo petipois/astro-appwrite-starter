@@ -1,16 +1,55 @@
 ---
-
+import MainLayout from "../layout/MainLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout>
+	<section class="bg-white dark:bg-gray-900">
+		<div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+			<h1
+				class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+			>
+				Astro Appwrite Starter Template
+			</h1>
+			<p
+				class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400"
+			>
+				Connecting the best BaaS to the best Frontend
+			</p>
+			<div
+				class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0"
+			>
+				<a
+					href="/login"
+					class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-orange-500 hover:bg-black focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+				>
+					Get started
+				</a>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-10">
+			<div
+			class="col-span-4 row-span-52 p-4 text-center bg-orange-500 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+		>
+			<h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+				What's included
+			</h5>
+
+			<div>
+				<ul>
+					<li>Astro JS</li>
+					<li>Tailwind CSS</li>
+					<li>Flowbite</li>
+					<li>Appwrite</li>
+				</ul>
+			</div>
+		</div>
+		<div class="p-4 col-span-6 row-span-5">
+			<h1 class="text-4xl font-bold">
+				About the template
+			</h1>
+			<p>The Astro appwrite template is a basic note-taking application with image upload using the Appwrite on the backend.</p>
+		</div>
+		</div>
+	</section>
+</MainLayout>

@@ -1,0 +1,33 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro Appwrite Starter</title>
+    </head>
+    <body>
+        <Header />
+        <div class="flex">
+            <div class="h-screen bg-black p-4">
+                <ul class="text-white ">
+                    <li class="text-xl p-4 font-bold">
+                        <a href="/dashboard" class="hover:text-orange-500">All notes</a>
+                    </li>
+                    <li class="text-xl p-4 font-bold">
+                        <a href="/create" class="hover:text-orange-500">Create</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="h-screen w-full p-4">
+                <slot />
+            </div>
+        </div>
+    </body>
+    <Footer />
+</html>

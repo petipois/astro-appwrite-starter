@@ -1,13 +1,6 @@
 ---
 import MainLayout from "../layout/MainLayout.astro";
 import { account } from "../lib/appwrite";
-let message = "";
-let email = "";
-let password = "";
-
-const dbID = import.meta.env.PUBLIC_ASTRO_APPWRITE_DATABASE_ID;
-const collectionID = import.meta.env.PUBLIC_ASTRO_APPWRITE_COLLECTION_ID;
-
 // Process the POST request
 if (Astro.request.method === "POST") {
     try {
@@ -15,7 +8,8 @@ if (Astro.request.method === "POST") {
         const email = data.get("email") as string;
         const password = data.get("password") as string;
 
-        const res = account.createEmailPasswordSession(email, password);
+        const res = await account.createEmailPasswordSession(email, password);
+      
         // Redirect to the home page after successful submission
         return Astro.redirect("/dashboard");
     } catch (error) {

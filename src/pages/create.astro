@@ -3,9 +3,9 @@ import { ID } from "appwrite";
 import SideLayout from "../layout/SideLayout.astro";
 import { db, storage } from "../lib/appwrite";
 
-const dbID = import.meta.env.PUBLIC_ASTRO_APPWRITE_DATABASE_ID;
-const collectionID = import.meta.env.PUBLIC_ASTRO_APPWRITE_COLLECTION_ID;
-const storageID = import.meta.env.PUBLIC_ASTRO_APPWRITE_STORAGE_BUCKET;
+const dbID =  "NotesApp";
+const collectionID = "notes"; // Replace with your notes collection ID
+const storageID ="gameNotes";
 
 // Process the POST request
 if (Astro.request.method === "POST") {

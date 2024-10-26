@@ -1,12 +1,9 @@
 ---
 import Card from "../components/Card.astro";
 import SideLayout from "../layout/SideLayout.astro";
-import { db, storage } from "../lib/appwrite";
+import { db, storage, databaseId, collectionId, storageID } from "../lib/appwrite";
 
-// Initialize Appwrite Database
-const databaseId = import.meta.env.PUBLIC_ASTRO_APPWRITE_DATABASE_ID; // Replace with your database ID
-const collectionId = import.meta.env.PUBLIC_ASTRO_APPWRITE_COLLECTION_ID; // Replace with your notes collection ID
-const storageID = import.meta.env.PUBLIC_ASTRO_APPWRITE_STORAGE_BUCKET;
+console.log(db)
 let notes: any[] = [];
 let results: any = [];
 // Function to fetch notes and render them in the container

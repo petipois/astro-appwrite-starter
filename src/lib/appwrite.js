@@ -5,4 +5,10 @@ const client = new Client().setEndpoint(endpoint).setProject(projectID)
 const account = new Account(client)
 const db = new Databases(client)
 const storage = new Storage(client)
-export  {account, db, storage}
+// Initialize Appwrite Database
+const databaseId = import.meta.env.PUBLIC_ASTRO_APPWRITE_DATABASE_ID; // Replace with your database ID
+const collectionId = import.meta.env.PUBLIC_ASTRO_APPWRITE_COLLECTION_ID; // Replace with your notes collection ID
+const storageID = import.meta.env.PUBLIC_ASTRO_APPWRITE_STORAGE_BUCKET;
+
+console.log(databaseId)
+export { account, db, storage, databaseId, collectionId, storageID }

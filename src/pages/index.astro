@@ -4,52 +4,88 @@ import MainLayout from "../layout/MainLayout.astro";
 
 <MainLayout>
 	<section class="bg-white dark:bg-gray-900">
-		<div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-			<h1
-				class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
-			>
-				Astro Appwrite Starter Template
-			</h1>
-			<p
-				class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400"
-			>
-				Connecting the best BaaS to the best Frontend
-			</p>
-			<div
-				class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0"
-			>
-				<a
-					href="/login"
-					class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-orange-500 hover:bg-black focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
-				>
-					Get started
-				</a>
-			</div>
-		</div>
-
-		<div class="grid grid-cols-1 md:grid-cols-10">
-			<div
-			class="col-span-4 row-span-52 p-4 text-center bg-orange-500 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+		<div
+			class="flex h-screen w-full flex-col items-center justify-center rounded-lg p-6 dark:bg-slate-900"
 		>
-			<h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
-				What's included
-			</h5>
+			<div class="grid h-full w-full grid-cols-3 grid-rows-6 gap-4">
+				<div
+					class="col-span-2 row-span-3 rounded-3xl bg-orange-400 p-4"
+				>
+					<h1
+						class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+					>
+						Astro Appwrite Starter Template
+					</h1>
 
-			<div>
-				<ul>
-					<li>Astro JS</li>
-					<li>Tailwind CSS</li>
-					<li>Flowbite</li>
-					<li>Appwrite</li>
-				</ul>
+					<p class="text-2xl font-bold mt-4">
+						The Astro appwrite template is a github repo with a
+						basic note-taking application with image upload using
+						the Appwrite on the backend.
+					</p>
+
+					<p class="text-2xl font-bold">
+						In this template you will be able create new note, view
+						all notes from the database and delete a note. <br />
+						You will also get the basics of adding a login/registration
+						system
+					</p>
+					<p class="text-2xl font-bold">
+						You need to have an free appwrite account and create a
+						project, then add the relevant credentials into a .env
+						file
+					</p>
+					<div class="mt-8">
+						<a
+							href="/login"
+							class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+							>Try Login</a
+						>
+						<a
+							href="/register"
+							class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+							>Try Register</a
+						>
+						<a
+							href="/dashboard"
+							class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+							>View Dashboard</a
+						>
+					</div>
+					</div>
+					<div class="row-span-4 rounded-3xl bg-black p-8 text-white">
+						<h5 class="mb-2 text-7xl font-bold">What's included</h5>
+
+						<div>
+							<ul>
+								<li class="font-bold text-3xl">Astro JS</li>
+								<li class="font-bold text-3xl">Tailwind CSS</li>
+								<li class="font-bold text-3xl">Flowbite</li>
+								<li class="font-bold text-3xl">Appwrite</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row-span-3 rounded-3xl bg-black text-white p-8">
+						<h1 class="text-4xl font-bold mt-2">
+							Appwrite Features
+						</h1>
+						<p class="text-xl italic">
+							The template uses the Auth, Database, and Storage
+							features from Appwrite
+						</p>
+						<ul>
+							<li class="font-bold text-3xl">Auth - Login</li>
+							<li class="font-bold text-3xl">
+								Database - Create, Read and Delete notes
+							</li>
+							<li class="font-bold text-3xl">
+								Storage - File uploads
+							</li>
+						</ul>
+					</div>
+					<div class="row-span-3 rounded-3xl bg-orange-400"></div>
+					<div class="row-span-2 rounded-3xl bg-orange-400"></div>
+				</div>
 			</div>
-		</div>
-		<div class="p-4 col-span-6 row-span-5">
-			<h1 class="text-4xl font-bold">
-				About the template
-			</h1>
-			<p>The Astro appwrite template is a basic note-taking application with image upload using the Appwrite on the backend.</p>
-		</div>
 		</div>
 	</section>
 </MainLayout>

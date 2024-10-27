@@ -1,6 +1,7 @@
 ---
 import MainLayout from "../layout/MainLayout.astro";
 import { account } from "../lib/appwrite";
+import { ID } from "appwrite";
 // Process the POST request
 if (Astro.request.method === "POST") {
     try {
@@ -8,10 +9,10 @@ if (Astro.request.method === "POST") {
         const email = data.get("email") as string;
         const password = data.get("password") as string;
 
-        const res = await account.createEmailPasswordSession(email, password);
-      
+        const res = await account.create(ID.unique(), email, password);
+
         // Redirect to the home page after successful submission
-        return Astro.redirect("/dashboard");
+        return Astro.redirect("/login");
     } catch (error) {
         if (error instanceof Error) {
             console.error("Error adding note:", error.message);
@@ -22,7 +23,7 @@ if (Astro.request.method === "POST") {
 
 <MainLayout>
     <div class="mx-auto max-w-md p-4">
-        <h1 class="text-3xl font-bold mt-4 text-center">Login - Get User</h1>
+        <h1 class="text-3xl font-bold mt-4 text-center">Register - Create User</h1>
 
         <form class="max-w-sm mx-auto pt-4" method="POST">
             <div class="mb-5">

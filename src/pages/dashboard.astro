@@ -10,13 +10,13 @@ import {
     storageID,
 } from "../lib/appwrite";
 
-let notes:any =[]
+let notes: any = [];
 
 // Fetch notes
 try {
     const response = await db.listDocuments(databaseId, collectionId);
     notes = response.documents;
-} catch (error:any) {
+} catch (error: any) {
     console.error("Error fetching notes:", error.message);
 }
 
@@ -39,8 +39,11 @@ if (Astro.request.method === "POST") {
         if (imageId) {
             try {
                 await storage.deleteFile(storageID, imageId);
-            } catch (error:any) {
-                console.error("Failed to delete associated image:", error.message);
+            } catch (error: any) {
+                console.error(
+                    "Failed to delete associated image:",
+                    error.message,
+                );
             }
         }
 
@@ -49,10 +52,14 @@ if (Astro.request.method === "POST") {
 
         // Redirect to refresh the list
         return Astro.redirect("/dashboard");
-
-    } catch (error:any) {
-        console.error("Failed to delete note or associated image:", error.message);
-        return new Response("Failed to delete note or associated image", { status: 500 });
+    } catch (error: any) {
+        console.error(
+            "Failed to delete note or associated image:",
+            error.message,
+        );
+        return new Response("Failed to delete note or associated image", {
+            status: 500,
+        });
     }
 }
 ---
@@ -60,24 +67,13 @@ if (Astro.request.method === "POST") {
 <SideLayout>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         {
-            notes.map((note:any) => (
-                <form method="POST" class="relative">
-                    <Card
-                        id={note.$id}
-                        imageUrl={note.imageUrl}
-                        title={note.title}
-                        content={note.content}
-                    />
-                    <!-- Delete Button -->
-                    <button
-                        type="submit"
-                        name="noteId"
-                        value={note.$id}
-                        class="absolute top-2 right-2 bg-red-500 text-white rounded px-2 py-1"
-                    >
-                        Delete
-                    </button>
-                </form>
+            notes.map((note: any) => (
+                <Card
+                    id={note.$id}
+                    imageUrl={note.imageUrl}
+                    title={note.title}
+                    content={note.content}
+                />
             ))
         }
     </div>

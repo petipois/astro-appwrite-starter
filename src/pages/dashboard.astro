@@ -1,4 +1,5 @@
 ---
+// Import necessary components and modules
 import Card from "../components/Card.astro";
 import SideLayout from "../layout/SideLayout.astro";
 import {
@@ -9,7 +10,7 @@ import {
     storageID,
 } from "../lib/appwrite";
 
-let notes: any = [];
+let notes:any =[]
 
 // Fetch notes
 try {
@@ -30,14 +31,28 @@ if (Astro.request.method === "POST") {
             throw new Error("Invalid or missing Note ID.");
         }
 
-        // Delete note by ID
+        // Fetch the note to get the image ID (if exists)
+        const note = await db.getDocument(databaseId, collectionId, noteId);
+        const imageId = note.imageId || null; // Assuming imageId is stored in the document
+
+        // If the note has an imageId, delete the image from storage
+        if (imageId) {
+            try {
+                await storage.deleteFile(storageID, imageId);
+            } catch (error:any) {
+                console.error("Failed to delete associated image:", error.message);
+            }
+        }
+
+        // Delete the note itself
         await db.deleteDocument(databaseId, collectionId, noteId);
 
         // Redirect to refresh the list
         return Astro.redirect("/dashboard");
+
     } catch (error:any) {
-        console.error("Failed to delete note:", error.message);
-        return new Response("Failed to delete note", { status: 500 });
+        console.error("Failed to delete note or associated image:", error.message);
+        return new Response("Failed to delete note or associated image", { status: 500 });
     }
 }
 ---

@@ -1,64 +1,68 @@
 ---
 import Card from "../components/Card.astro";
 import SideLayout from "../layout/SideLayout.astro";
-import { db, storage, databaseId, collectionId, storageID } from "../lib/appwrite";
+import {
+    db,
+    storage,
+    databaseId,
+    collectionId,
+    storageID,
+} from "../lib/appwrite";
 
-console.log(db)
-let notes: any[] = [];
-let results: any = [];
-// Function to fetch notes and render them in the container
-async function fetchNotes() {
-    try {
-        const response = await db.listDocuments(databaseId, collectionId);
-        notes = response.documents;
-    } catch (error:any) {
-        console.error("Error fetching notes:", error.message);
-    }
+let notes: any = [];
+
+// Fetch notes
+try {
+    const response = await db.listDocuments(databaseId, collectionId);
+    notes = response.documents;
+} catch (error:any) {
+    console.error("Error fetching notes:", error.message);
 }
-fetchNotes();
-// Handle POST for deletion
+
+// Handle POST request for deletion
 if (Astro.request.method === "POST") {
     try {
         const data = await Astro.request.formData();
         const noteId = data.get("noteId") as string;
 
-        if (noteId) {
-            // Retrieve the document to get the image ID
-            const note = results.find((n: any) => n.$id === noteId);
-            const imageUrl = note?.imageUrl;
-
-            // Delete the file from storage if the image exists
-            if (imageUrl) {
-                await storage.deleteFile(storageID, imageUrl); // Use the image ID
-            }
-
-            // Delete the note by its ID
-            await db.deleteDocument(
-                databaseId, // Database ID
-                collectionId, // Collection ID
-                noteId, // Document ID to be deleted
-            );
-
-            // Redirect to the same page to refresh the list
-            return Astro.redirect("/");
+        // Ensure noteId exists
+        if (!noteId) {
+            throw new Error("Invalid or missing Note ID.");
         }
-    } catch (error) {
-        console.error("Failed to delete note or image", error);
+
+        // Delete note by ID
+        await db.deleteDocument(databaseId, collectionId, noteId);
+
+        // Redirect to refresh the list
+        return Astro.redirect("/dashboard");
+    } catch (error:any) {
+        console.error("Failed to delete note:", error.message);
+        return new Response("Failed to delete note", { status: 500 });
     }
 }
 ---
 
 <SideLayout>
-    <!-- Display each note -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         {
-            notes.map((note) => (
-                <Card
-                    id={note.id}
-                    imageUrl={note.imageUrl}
-                    title={note.title}
-                    content={note.content}
-                />
+            notes.map((note:any) => (
+                <form method="POST" class="relative">
+                    <Card
+                        id={note.$id}
+                        imageUrl={note.imageUrl}
+                        title={note.title}
+                        content={note.content}
+                    />
+                    <!-- Delete Button -->
+                    <button
+                        type="submit"
+                        name="noteId"
+                        value={note.$id}
+                        class="absolute top-2 right-2 bg-red-500 text-white rounded px-2 py-1"
+                    >
+                        Delete
+                    </button>
+                </form>
             ))
         }
     </div>

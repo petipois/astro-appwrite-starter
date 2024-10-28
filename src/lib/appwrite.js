@@ -10,5 +10,4 @@ const databaseId = import.meta.env.PUBLIC_ASTRO_APPWRITE_DATABASE_ID; // Replace
 const collectionId = import.meta.env.PUBLIC_ASTRO_APPWRITE_COLLECTION_ID; // Replace with your notes collection ID
 const storageID = import.meta.env.PUBLIC_ASTRO_APPWRITE_STORAGE_BUCKET;
 
-console.log(databaseId)
 export { account, db, storage, databaseId, collectionId, storageID }

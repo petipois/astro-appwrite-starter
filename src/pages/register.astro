@@ -10,9 +10,14 @@ if (Astro.request.method === "POST") {
         const password = data.get("password") as string;
 
         const res = await account.create(ID.unique(), email, password);
-
-        // Redirect to the home page after successful submission
-        return Astro.redirect("/login");
+        if (res) {
+            const result = await account.createEmailPasswordSession(
+                email,
+                password,
+            );
+            // Redirect to the home page after successful submission
+            return Astro.redirect("/dashboard");
+        }
     } catch (error) {
         if (error instanceof Error) {
             console.error("Error adding note:", error.message);
@@ -23,7 +28,9 @@ if (Astro.request.method === "POST") {
 
 <MainLayout>
     <div class="mx-auto max-w-md p-4">
-        <h1 class="text-3xl font-bold mt-4 text-center">Register - Create User</h1>
+        <h1 class="text-3xl font-bold mt-4 text-center">
+            Register - Create User
+        </h1>
 
         <form class="max-w-sm mx-auto pt-4" method="POST">
             <div class="mb-5">

@@ -3,9 +3,9 @@ import { ID } from "appwrite";
 import SideLayout from "../layout/SideLayout.astro";
 import { db, storage } from "../lib/appwrite";
 
-const dbID =  "NotesApp";
+const dbID = "NotesApp";
 const collectionID = "notes"; // Replace with your notes collection ID
-const storageID ="gameNotes";
+const storageID = "gameNotes";
 
 // Process the POST request
 if (Astro.request.method === "POST") {
@@ -17,10 +17,11 @@ if (Astro.request.method === "POST") {
 
         let imageID = "";
 
-         // If an image is uploaded, store it in Appwrite storage
-         if (imageFile instanceof File && imageFile.size > 0) { // Check that the file exists and is not empty
+        // If an image is uploaded, store it in Appwrite storage
+        if (imageFile instanceof File && imageFile.size > 0) {
+            // Check that the file exists and is not empty
             const fileUploaded = await storage.createFile(
-                storageID, 
+                storageID,
                 ID.unique(),
                 imageFile,
             );

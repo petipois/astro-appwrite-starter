@@ -9,9 +9,11 @@ if (Astro.request.method === "POST") {
         const password = data.get("password") as string;
 
         const res = await account.createEmailPasswordSession(email, password);
-      
-        // Redirect to the home page after successful submission
-        return Astro.redirect("/dashboard");
+        if (res) {
+            Astro.cookies.set("userSession", res);
+            // Redirect to the home page after successful submission
+            return Astro.redirect("/dashboard");
+        }
     } catch (error) {
         if (error instanceof Error) {
             console.error("Error adding note:", error.message);

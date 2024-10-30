@@ -11,7 +11,6 @@ import {
 } from "../lib/appwrite";
 
 let notes: any = [];
-
 // Fetch notes
 try {
     const response = await db.listDocuments(databaseId, collectionId);
@@ -19,6 +18,7 @@ try {
 } catch (error: any) {
     console.error("Error fetching notes:", error.message);
 }
+
 
 // Handle POST request for deletion
 if (Astro.request.method === "POST") {
@@ -65,16 +65,18 @@ if (Astro.request.method === "POST") {
 ---
 
 <SideLayout>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {
-            notes.map((note: any) => (
-                <Card
-                    id={note.$id}
-                    imageUrl={note.imageUrl}
-                    title={note.title}
-                    content={note.content}
-                />
-            ))
-        }
+    <div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {
+                notes.map((note: any) => (
+                    <Card
+                        id={note.$id}
+                        imageUrl={note.imageUrl}
+                        title={note.title}
+                        content={note.content}
+                    />
+                ))
+            }
+        </div>
     </div>
 </SideLayout>

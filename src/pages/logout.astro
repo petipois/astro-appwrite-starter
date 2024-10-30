@@ -1,0 +1,15 @@
+---
+import MainLayout from "../layout/MainLayout.astro";
+import { account } from "../lib/appwrite";
+// Process the POST request
+if (Astro.request.method === "POST") {
+    try {
+        const result = await account.deleteSessions();
+        console.log(result);
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error("Error logging out:", error.message);
+        }
+    }
+}
+---

@@ -1,4 +1,11 @@
 ---
+import {
+    db,
+    storage,
+    databaseId,
+    collectionId,
+    storageID,
+} from "../lib/appwrite";
 interface Props {
     title: string;
     content: string;
@@ -10,12 +17,51 @@ const projectID = import.meta.env.PUBLIC_ASTRO_APPWRITE_PROJECT_ID;
 const { id, title, content, imageUrl } = Astro.props;
 const storageURL = `https://cloud.appwrite.io/v1/storage/buckets/${storageBucket}/files/`;
 const viewURL = `/view?project=${projectID}&mode=admin`;
+
+// Handle POST request for deletion
+if (Astro.request.method === "POST") {
+    try {
+        const data = await Astro.request.formData();
+        const noteId = data.get("noteId") as string;
+
+        // Ensure noteId exists
+        if (!noteId) {
+            throw new Error("Invalid or missing Note ID.");
+        }
+
+        // Fetch the note to get the image ID (if exists)
+        const note = await db.getDocument(databaseId, collectionId, noteId);
+        const imageId = note.imageId || null; // Assuming imageId is stored in the document
+
+        // If the note has an imageId, delete the image from storage
+        if (imageId) {
+            try {
+                await storage.deleteFile(storageID, imageId);
+            } catch (error: any) {
+                console.error(
+                    "Failed to delete associated image:",
+                    error.message,
+                );
+            }
+        }
+
+        // Delete the note itself
+        await db.deleteDocument(databaseId, collectionId, noteId);
+    } catch (error: any) {
+        console.error(
+            "Failed to delete note or associated image:",
+            error.message,
+        );
+        return new Response("Failed to delete note or associated image", {
+            status: 500,
+        });
+    }
+}
 ---
 
 <div
     class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
 >
-
     <a href="/">
         <img
             src={imageUrl
